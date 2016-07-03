@@ -151,13 +151,15 @@ func (api *Client) PostMessage(channel, text string, params PostMessageParameter
 }
 
 // UpdateMessage updates a message in a channel
-func (api *Client) UpdateMessage(channel, timestamp, text string) (string, string, string, error) {
+func (api *Client) UpdateMessage(channel, timestamp, text string, attachments []Attachment) (string, string, string, error) {
 	values := url.Values{
 		"token":   {api.config.token},
 		"channel": {channel},
 		"text":    {escapeMessage(text)},
 		"ts":      {timestamp},
 	}
+	atts, _ := json.Marshal(attachments)
+	values["attachments"] = []string{string(atts)}
 	response, err := chatRequest("chat.update", values, api.debug)
 	if err != nil {
 		return "", "", "", err
