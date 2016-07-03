@@ -24,7 +24,7 @@ type AttachmentAction struct {
 	Value      string `json:"value,omitempty"`
 	Style      string `json:"style,omitempty"`
 
-	Confirm AttachmentActionConfirm `json:"confirm,omitempty"`
+	Confirm *AttachmentActionConfirm `json:"confirm,omitempty"`
 }
 
 // Attachment contains all the information for an attachment
